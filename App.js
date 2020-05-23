@@ -26,22 +26,80 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 const App = () => {
-  const URL = 'api/v1/festivals';
+const URL = 'api/v1/festivals';
 const [isLoading, setIsLoading] = useState(false);
 const [dataSource, setDataSource] = useState(null);
 
 const mockData = [
-  {'name': 'Festival_A',
+  {
+    'name': 'Festival_A',
     'bands': [
       {
+        'name': 'Band_W',
+        'recordLabel': 'RecordLabel_1'
+      },
+      {
         'name': 'Band_X',
+        'recordLabel': 'RecordLabel_3'
+      },
+      {
+        'name': 'Band_Z',
         'recordLabel': 'RecordLabel_1'
       }
     ]
-
+  },
+  {
+    'name': 'Festival_B',
+    'bands': [
+      {
+        'name': 'Band_A',
+        'recordLabel': 'RecordLabel_2'
+      },
+      {
+        'name': 'Band_B',
+        'recordLabel': 'RecordLabel_3'
+      },
+      {
+        'name': 'Band_Z',
+        'recordLabel': 'RecordLabel_1'
+      }
+    ]
+  },
+  {
+    'name': 'Festival_C',
+    'bands': [
+      {
+        'name': 'Band_W',
+        'recordLabel': 'RecordLabel_1'
+      },
+      {
+        'name': 'Band_A',
+        'recordLabel': 'RecordLabel_2'
+      },
+      {
+        'name': 'Band_Z',
+        'recordLabel': 'RecordLabel_1'
+      }
+    ]
+  },
+  {
+    'name': '',
+    'bands': [
+      {
+        'name': 'Band_E',
+        'recordLabel': 'RecordLabel_1'
+      },
+      {
+        'name': 'Band_F',
+        'recordLabel': 'RecordLabel_2'
+      },
+      {
+        'name': 'Band_G',
+        'recordLabel': 'RecordLabel_3'
+      }
+    ]
   }
-
-]
+];
 
 const fetchFestivals = async () => {
  setIsLoading(true);
