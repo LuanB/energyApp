@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,6 +14,7 @@ import {
   View,
   Text,
   StatusBar,
+  ActivityIndicator
 } from 'react-native';
 
 import {
@@ -24,7 +25,10 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const App: () => React$Node = () => {
+const App = () => {
+const [isLoading, setIsLoading] = useState(false);
+const [dataSource, setDataSource] = userState(null);
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
