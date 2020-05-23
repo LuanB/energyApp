@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -26,9 +26,36 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 const App = () => {
+  const URL = 'api/v1/festivals';
 const [isLoading, setIsLoading] = useState(false);
-const [dataSource, setDataSource] = userState(null);
+const [dataSource, setDataSource] = useState(null);
 
+const mockData = [
+  {'name': 'Festival_A',
+    'bands': [
+      {
+        'name': 'Band_X',
+        'recordLabel': 'RecordLabel_1'
+      }
+    ]
+
+  }
+
+]
+
+const fetchFestivals = async () => {
+ setIsLoading(true);
+  //const apiCall = await fetch(URL);
+  apiCall = mockData;
+  const festivalsData = await apiCall.json();
+  setIsLoading(false)
+  setDataSource(festivalsData)
+  console.log("festival data is ", festivalsData);
+}
+
+useEffect(() => {
+   fetchFestivals();
+},[]);
   return (
     <>
       <StatusBar barStyle="dark-content" />
