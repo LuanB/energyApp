@@ -25,6 +25,8 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import {normalize, schema} from 'normalizr';
+
 const App = () => {
 const URL = 'api/v1/festivals';
 const [isLoading, setIsLoading] = useState(false);
@@ -99,16 +101,39 @@ const mockData = [
       }
     ]
   }
+
 ];
+
+
+
+
+
+const band = new schema.Entity('band', {}, {idAttribute: 'name'});
+const recordLabelCompany = new schema.Entity('recordLabelCompany', {}, {idAttribute: 'recordLabel'});
+
+const festivalSchema = new schema.Entity('festival', {}, {idAttribute: 'name'});
+
+const festivalListSchema = new schema.Array(festivalSchema);
+
+
+
+
+
+
+
 
 const fetchFestivals = async () => {
  setIsLoading(true);
   //const apiCall = await fetch(URL);
-  apiCall = mockData;
-  const festivalsData = await apiCall.json();
-  setIsLoading(false)
-  setDataSource(festivalsData)
+  //const festivalsData = await apiCall.json();
+  const festivalsData = mockData;
+  setIsLoading(false);
+  setDataSource(festivalsData);
   console.log("festival data is ", festivalsData);
+
+  const normalizedData = normalize(festivalsData, festivalListSchema);
+  console.log('normalised data is ', normalizedData);
+
 }
 
 useEffect(() => {
