@@ -238,14 +238,14 @@ useEffect(() => {
           dataSource &&  Object.keys(dataSource).map((recordLabel, key) => {
          return(
            <View key={key}> 
-         <Text >{recordLabel}</Text>
+         <Text style={styles.recordLabel} >{recordLabel}</Text>
          {Object.keys(dataSource[recordLabel]).map((band, key) =>{
            return(
              <View key={key}>
-             <Text>{band}</Text>
+             <Text style={styles.band}>{band}</Text>
              <View>
              {dataSource[recordLabel][band].map(festival => {
-               return(<Text>{festival}</Text>)
+               return(<Text style={styles.festival}>{festival}</Text>)
              })}
              </View>
             
@@ -305,6 +305,16 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     textAlign: 'right',
   },
+  recordLabel:{
+    paddingLeft: 10
+  },
+  band: {
+    paddingLeft:20
+  },
+  festival: {
+    paddingLeft: 30
+  }
+
 });
 
 export default App;
