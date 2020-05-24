@@ -205,7 +205,7 @@ const fetchFestivals =  () => {
 
  
  //const normalizedData = normalize(festivalsData, festivalListSchema);
- //console.log('normalised data is ', normalizedData);
+ 
 
 let normalised_Data = normaliseData(mockData);
 
