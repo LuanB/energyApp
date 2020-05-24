@@ -25,12 +25,41 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import {normalize, schema} from 'normalizr';
+import {normalize,arrayOf, schema} from 'normalizr';
 
 const App = () => {
 const URL = 'api/v1/festivals';
 const [isLoading, setIsLoading] = useState(false);
 const [dataSource, setDataSource] = useState(null);
+
+
+
+// //const band = new schema.Entity('band', {}, {idAttribute: 'name'});
+// const band = new schema.Entity('band');
+// //const recordLabelCompany = new schema.Entity('recordLabelCompany', {}, {idAttribute: 'recordLabel'});
+// const recordLabelCompany = new schema.Entity('recordLabelCompany');
+
+// //const festivalSchema = new schema.Entity('festival', {}, {idAttribute: 'name'});
+// const festivalSchema = new schema.Object({bands: new schema.Object({name: band, recordLabel: recordLabelCompany})})
+
+// const festivalListSchema = new schema.Array(festivalSchema);
+
+
+
+//  const bandSchema = new schema.Entity('band', {}, {idAttribute: 'name'});
+
+//  const recordLabelSchema = new schema.Entity('recordLabel', {}, {idAttribute: 'recordLabel'});
+
+//  const recordLabelListSchema = new schema.Array(recordLabelSchema);
+
+//  const bandsSchema = new schema.Object('bandsSchema', {name: bandSchema, recordLabel: recordLabelSchema}, {idAttribute: 'bands'});
+
+//  const festivalSchema = new schema.Entity('festivalSchema', { bands: [bandsSchema]}, {idAttribute: 'name'} )
+
+
+//  const festivalListSchema = new schema.Array(festivalSchema);
+
+
 
 const mockData = [
   {
@@ -105,13 +134,16 @@ const mockData = [
 ];
 
 
+const bandSchema = new schema.Entity('band', {}, {idAttribute: 'name'});
+
+const recordLabelSchema = new schema.Entity('recordLabel', {}, {idAttribute: 'recordLabel'});
+
+const recordLabelListSchema = new schema.Array(recordLabelSchema);
 
 
+const bandsSchema = new schema.Entity('recordlabel', {},  {idAttribute: 'recordLabel'});
 
-const band = new schema.Entity('band', {}, {idAttribute: 'name'});
-const recordLabelCompany = new schema.Entity('recordLabelCompany', {}, {idAttribute: 'recordLabel'});
-
-const festivalSchema = new schema.Entity('festival', {}, {idAttribute: 'name'});
+const festivalSchema = new schema.Entity('festivalSchema', { bands: [bandsSchema]}, {idAttribute:'name'})
 
 const festivalListSchema = new schema.Array(festivalSchema);
 
@@ -119,10 +151,7 @@ const festivalListSchema = new schema.Array(festivalSchema);
 
 
 
-
-
-
-const fetchFestivals = async () => {
+const fetchFestivals =  () => {
  setIsLoading(true);
   //const apiCall = await fetch(URL);
   //const festivalsData = await apiCall.json();
@@ -131,6 +160,7 @@ const fetchFestivals = async () => {
   setDataSource(festivalsData);
   console.log("festival data is ", festivalsData);
 
+  //const normalizedData = normalize(festivalsData, festivalListSchema);
   const normalizedData = normalize(festivalsData, festivalListSchema);
   console.log('normalised data is ', normalizedData);
 
