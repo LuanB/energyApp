@@ -27,106 +27,80 @@ import {
 
 import {normalize,arrayOf, schema} from 'normalizr';
 
+
+
 const App = () => {
 const URL = 'api/v1/festivals';
 const [isLoading, setIsLoading] = useState(false);
 const [dataSource, setDataSource] = useState(null);
 
 
-
-// //const band = new schema.Entity('band', {}, {idAttribute: 'name'});
-// const band = new schema.Entity('band');
-// //const recordLabelCompany = new schema.Entity('recordLabelCompany', {}, {idAttribute: 'recordLabel'});
-// const recordLabelCompany = new schema.Entity('recordLabelCompany');
-
-// //const festivalSchema = new schema.Entity('festival', {}, {idAttribute: 'name'});
-// const festivalSchema = new schema.Object({bands: new schema.Object({name: band, recordLabel: recordLabelCompany})})
-
-// const festivalListSchema = new schema.Array(festivalSchema);
-
-
-
-//  const bandSchema = new schema.Entity('band', {}, {idAttribute: 'name'});
-
-//  const recordLabelSchema = new schema.Entity('recordLabel', {}, {idAttribute: 'recordLabel'});
-
-//  const recordLabelListSchema = new schema.Array(recordLabelSchema);
-
-//  const bandsSchema = new schema.Object('bandsSchema', {name: bandSchema, recordLabel: recordLabelSchema}, {idAttribute: 'bands'});
-
-//  const festivalSchema = new schema.Entity('festivalSchema', { bands: [bandsSchema]}, {idAttribute: 'name'} )
-
-
-//  const festivalListSchema = new schema.Array(festivalSchema);
-
-
-
 const mockData = [
   {
-    'name': 'Festival_A',
-    'bands': [
+    name: 'Festival_A',
+    bands: [
       {
-        'name': 'Band_W',
-        'recordLabel': 'RecordLabel_1'
+        name: 'Band_W',
+        recordLabel: 'RecordLabel_1'
       },
       {
-        'name': 'Band_X',
-        'recordLabel': 'RecordLabel_3'
+        name: 'Band_X',
+        recordLabel: 'RecordLabel_3'
       },
       {
-        'name': 'Band_Z',
-        'recordLabel': 'RecordLabel_1'
+        name: 'Band_Z',
+        recordLabel: 'RecordLabel_1'
       }
     ]
   },
   {
-    'name': 'Festival_B',
-    'bands': [
+    name: 'Festival_B',
+    bands: [
       {
-        'name': 'Band_A',
-        'recordLabel': 'RecordLabel_2'
+        name: 'Band_A',
+        recordLabel: 'RecordLabel_2'
       },
       {
-        'name': 'Band_B',
-        'recordLabel': 'RecordLabel_3'
+        name: 'Band_B',
+        recordLabel: 'RecordLabel_3'
       },
       {
-        'name': 'Band_Z',
-        'recordLabel': 'RecordLabel_1'
+        name: 'Band_Z',
+        recordLabel: 'RecordLabel_1'
       }
     ]
   },
   {
-    'name': 'Festival_C',
-    'bands': [
+    name: 'Festival_C',
+    bands: [
       {
-        'name': 'Band_W',
-        'recordLabel': 'RecordLabel_1'
+        name: 'Band_W',
+        recordLabel: 'RecordLabel_1'
       },
       {
-        'name': 'Band_A',
-        'recordLabel': 'RecordLabel_2'
+        name: 'Band_A',
+        recordLabel: 'RecordLabel_2'
       },
       {
-        'name': 'Band_Z',
-        'recordLabel': 'RecordLabel_1'
+        name: 'Band_Z',
+        recordLabel: 'RecordLabel_1'
       }
     ]
   },
   {
-    'name': '',
-    'bands': [
+    name: '',
+    bands: [
       {
-        'name': 'Band_E',
-        'recordLabel': 'RecordLabel_1'
+        name: 'Band_E',
+        recordLabel: 'RecordLabel_1'
       },
       {
-        'name': 'Band_F',
-        'recordLabel': 'RecordLabel_2'
+        name: 'Band_F',
+        recordLabel: 'RecordLabel_2'
       },
       {
-        'name': 'Band_G',
-        'recordLabel': 'RecordLabel_3'
+        name: 'Band_G',
+        recordLabel: 'RecordLabel_3'
       }
     ]
   }
@@ -134,21 +108,35 @@ const mockData = [
 ];
 
 
-const bandSchema = new schema.Entity('band', {}, {idAttribute: 'name'});
-
-const recordLabelSchema = new schema.Entity('recordLabel', {}, {idAttribute: 'recordLabel'});
-
-const recordLabelListSchema = new schema.Array(recordLabelSchema);
 
 
-const bandsSchema = new schema.Entity('recordlabel', {},  {idAttribute: 'recordLabel'});
+// const bandsSchema = new schema.Entity('recordlabel', {},  {idAttribute: 'recordLabel'});
 
-const festivalSchema = new schema.Entity('festivalSchema', { bands: [bandsSchema]}, {idAttribute:'name'})
+// const festivalSchema = new schema.Entity('festivalSchema', { bands: [bandsSchema]}, {idAttribute:'name'})
+// const recordLabel = new schema.Array('recordArray', bandsSchema);
+// const festivalListSchema = new schema.Array(festivalSchema);
 
-const festivalListSchema = new schema.Array(festivalSchema);
+const normaliseData = (jsonData) => {
+
+  let normalised_Data = {}
+
+  for(let i=0; i < jsonData.length; i++) {
+
+    normalised_Data[jsonData[i].name ? jsonData[i].name: 'no festival attended'] = jsonData[i]
+
+  }
+
+
+  let normalised_RecordLabel = {}
 
 
 
+  //console.log(normalised_Data);
+
+  return normalised_Data;
+
+
+}
 
 
 const fetchFestivals =  () => {
@@ -160,9 +148,13 @@ const fetchFestivals =  () => {
   setDataSource(festivalsData);
   console.log("festival data is ", festivalsData);
 
-  //const normalizedData = normalize(festivalsData, festivalListSchema);
-  const normalizedData = normalize(festivalsData, festivalListSchema);
-  console.log('normalised data is ', normalizedData);
+ 
+ //const normalizedData = normalize(festivalsData, festivalListSchema);
+ //console.log('normalised data is ', normalizedData);
+
+let normalised_Data = normaliseData(mockData);
+console.log(normalised_Data); 
+
 
 }
 

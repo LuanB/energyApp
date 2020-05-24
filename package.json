@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "json-api-normalizer": "^0.4.16",
     "normalizr": "^3.6.0",
     "react": "16.11.0",
     "react-native": "0.62.2"
