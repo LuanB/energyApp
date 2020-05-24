@@ -118,22 +118,77 @@ const mockData = [
 
 const normaliseData = (jsonData) => {
 
-  let normalised_Data = {}
+let recordLabelMap = {};
 
-  for(let i=0; i < jsonData.length; i++) {
+jsonData.forEach(festival => {
+    const festivalName = festival.name || "No festival Attended";
+    console.log(festivalName);
+    console.log(festival);
+    festival.bands.forEach( band => {
+      console.log(band);
+      const bandName = band.name || "null";
+      const recordLabelCompany = band.recordLabel || "null";
+      if(!recordLabelMap[recordLabelCompany]){
+        recordLabelMap[recordLabelCompany] = {}
+      }
 
-    normalised_Data[jsonData[i].name ? jsonData[i].name: 'no festival attended'] = jsonData[i]
+      if(!recordLabelMap[recordLabelCompany][bandName]) {
+        recordLabelMap[recordLabelCompany][bandName] = [];
+      }
 
-  }
+      console.log(bandName);
+      console.log(recordLabelCompany);
+    
+      recordLabelMap[recordLabelCompany][bandName].push(festivalName)  
+      console.log(recordLabelMap);
+    })
+})
+
+console.log('recordmap is ',recordLabelMap);
+
+return recordLabelMap;
+
+//   let normalised_Data = {}
+
+//   for(let i=0; i < jsonData.length; i++) {
+
+//     normalised_Data[jsonData[i].name ? jsonData[i].name: 'no festival attended'] = jsonData[i]
+
+//   }
 
 
-  let normalised_RecordLabel = {}
+//   let normalised_RecordLabel = {
+//     bands: [],
+//   };
+
+// let band = [];
+
+
+//   console.log('normalised data is ', normalised_Data)
+
+   
+//        Object.values(normalised_Data).map(festival => {    
+//      festival.bands.map(band => {
+               
+//                  console.log('band is ', band)
+//                  normalised_RecordLabel[band.recordLabel] = band.recordLabel;
+              
+                 
+//            })
+//         })
+
+//   //normalised_RecordLabel["labels"] = [...recordLableSet];
+
+//   console.log(normalised_RecordLabel)
+ 
+  
+
 
 
 
   //console.log(normalised_Data);
 
-  return normalised_Data;
+ // return normalised_Data;
 
 
 }
@@ -146,14 +201,14 @@ const fetchFestivals =  () => {
   const festivalsData = mockData;
   setIsLoading(false);
   setDataSource(festivalsData);
-  console.log("festival data is ", festivalsData);
+ // console.log("festival data is ", festivalsData);
 
  
  //const normalizedData = normalize(festivalsData, festivalListSchema);
  //console.log('normalised data is ', normalizedData);
 
 let normalised_Data = normaliseData(mockData);
-console.log(normalised_Data); 
+//console.log(normalised_Data); 
 
 
 }
