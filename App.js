@@ -126,8 +126,8 @@ jsonData.forEach(festival => {
     console.log(festival);
     festival.bands.forEach( band => {
       console.log(band);
-      const bandName = band.name || "null";
-      const recordLabelCompany = band.recordLabel || "null";
+      const bandName = band.name;
+      const recordLabelCompany = band.recordLabel;
       if(!recordLabelMap[recordLabelCompany]){
         recordLabelMap[recordLabelCompany] = {}
       }
@@ -200,7 +200,7 @@ const fetchFestivals =  () => {
   //const festivalsData = await apiCall.json();
   const festivalsData = mockData;
   setIsLoading(false);
-  setDataSource(festivalsData);
+ // setDataSource(festivalsData);
  // console.log("festival data is ", festivalsData);
 
  
@@ -208,7 +208,10 @@ const fetchFestivals =  () => {
  //console.log('normalised data is ', normalizedData);
 
 let normalised_Data = normaliseData(mockData);
-//console.log(normalised_Data); 
+
+setDataSource(normalised_Data);
+
+console.log(normalised_Data); 
 
 
 }
@@ -223,39 +226,41 @@ useEffect(() => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-          <Header />
+       
           {global.HermesInternal == null ? null : (
             <View style={styles.engine}>
               <Text style={styles.footer}>Engine: Hermes</Text>
             </View>
           )}
           <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
+          {
+
+          dataSource &&  Object.keys(dataSource).map((recordLabel, key) => {
+         return(
+           <View key={key}> 
+         <Text >{recordLabel}</Text>
+         {Object.keys(dataSource[recordLabel]).map((band, key) =>{
+           return(
+             <View key={key}>
+             <Text>{band}</Text>
+             <View>
+             {dataSource[recordLabel][band].map(festival => {
+               return(<Text>{festival}</Text>)
+             })}
+             </View>
+            
+             </View>
+           )
+         })} 
+         </View>
+         )
+               
+        })
+           
+
+          }
+
+
           </View>
         </ScrollView>
       </SafeAreaView>
