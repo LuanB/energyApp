@@ -6,7 +6,7 @@ I have gone with React Native mobile platform because I considered the target au
 
 Comments on this task:
 
-Main issue is to flatten the nested objects into entities to reduce duplicated data, reduce amount of loops. I mapped over the jsonData and then created an object with the required structure for the front end UI. There will be major issues for future CRUD operations giving that these tasks are done in the front end.
+Main task is normalising the nested object from the api into a form required by the coding challenge. I mapped over the jsonData and then created an object with the required structure for the front end UI. There will be major issues for future CRUD operations giving that these tasks are done in the front end.
 
 - Doing this task in the front end is not recommended:
 
