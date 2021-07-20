@@ -13,7 +13,7 @@
     "json-api-normalizer": "^0.4.16",
     "normalizr": "^3.6.0",
     "react": "16.11.0",
-    "react-native": "0.62.2"
+    "react-native": "0.62.3"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
